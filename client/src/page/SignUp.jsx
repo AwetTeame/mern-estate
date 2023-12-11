@@ -16,7 +16,7 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setLoading(false);
+      setLoading(true);
       const res = await fetch("/api/auth/signup", {
         method: "POST",
         headers: {
@@ -26,13 +26,13 @@ export default function SignUp() {
       });
       const data = await res.json();
       if (data.success === false) {
-        setLoading(false);
         setErr(data.message);
+        setLoading(false);
         return;
       }
       setLoading(false);
       setErr(null);
-      navigate('/sign-in');
+      navigate("/sign-in");
     } catch (err) {
       setLoading(false);
       setErr(err.message);
@@ -73,11 +73,11 @@ export default function SignUp() {
       </form>
       <div className="flex gap-2 mt-5">
         <p>Have an account?</p>
-        <Link to={"/sing-in"}>
+        <Link to={"/sign-in"}>
           <span className="text-blue-700">Sing In</span>
         </Link>
       </div>
-        {err && <p className="text-red-500 mt-5">{err}</p>}
+      {err && <p className="text-red-500 mt-5">{err}</p>}
     </div>
   );
 }
